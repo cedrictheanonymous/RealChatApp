@@ -37,6 +37,15 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install buildozer cython
 
+      - name: Prepare Buildozer
+        run: |
+          buildozer android clean || true
+
+      - name: Accept Android licenses
+        run: |
+          mkdir -p ~/.buildozer/android/platform
+          yes | buildozer android update || true
+
       - name: Build APK
         run: |
           buildozer -v android debug
